@@ -49,12 +49,12 @@ class Information:
 
     def number_of_account(self):
         session = self.db.get_session()
-        if session.query(MyTable).order_by(
-            MyTable.account_number.desc(),
-        ).first() is not None:
-            last_record = session.query(MyTable).order_by(
-                MyTable.account_number.desc()
-            ).first()
+
+        last_record = session.query(MyTable).order_by(
+            MyTable.account_number.desc()
+        ).first()
+
+        if last_record is not None:
             account_number = last_record.account_number
         else:
             account_number = 0
