@@ -20,7 +20,6 @@ class DataBaseEngine:
 
         self._session_factory = self.configure()
 
-    #створюємо двигун, створюємо yci таблиці,
     def configure(self):
         engine = create_engine(
             f"postgresql://{self.db_user}:{self.db_password}"
@@ -70,3 +69,8 @@ class Information:
         session = self.db.get_session()
         session.add(summary)
         session.commit()
+
+    def get_all_orders(self):
+        session = self.db.get_session()
+        all_records = session.query(MyTable).all()
+        return all_records

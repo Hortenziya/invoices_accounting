@@ -1,20 +1,21 @@
 import re
 
 from models import Information
-from view import Window
+from view import Window, WindowTable
 
 
 class Controller:
     def __init__(self) -> None:
         self.view = Window()
+        self.table = WindowTable()
         self.model = Information()
 
     def start(self):
         self.view.set_on_click(self.process_user_message)
         self.view.show()
+        self.view.set_table(self.populate_model)
 
     def process_user_message(self):
-
         information = list(self.view.get_information())
         details = information[0]
         date = information[1]
@@ -56,3 +57,10 @@ class Controller:
             account_number = first_account_number + 1
             print(account_number)
         return account_number
+
+    def populate_model(self):
+        all_orders = self.model.get_all_orders()
+        self.table.populate_orders(all_orders)
+        self.table.show()
+        print(self.table)
+
